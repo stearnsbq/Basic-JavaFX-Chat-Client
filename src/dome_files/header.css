@@ -1,0 +1,18 @@
+.centerForm {
+    padding-top: 10px;
+}
+.padRight {
+    padding-right: 10px;
+}
+
+.navbar{
+  font:'Arial Narrow Bold', sans-serif !important;
+  font-size:18px;
+  color:#000;
+  margin: 0 auto;
+  z-index: 10;
+}
+
+.navbar-brand{
+  text-transform:uppercase;
+}
