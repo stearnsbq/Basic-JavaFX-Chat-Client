@@ -12,6 +12,8 @@ DEMO:
   <li>Emoji Support</li>
   <li>Connnected Userlist</li>
   <li>Server Control Panel</li>
+  <li>User based login</li>
+  <li>Profile pictures</li>
 </ul>
 
 
