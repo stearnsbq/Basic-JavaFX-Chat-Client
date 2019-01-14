@@ -1,4 +1,4 @@
-#Extremely Basic Socket based JavaFX Chat Client
+# Extremely Basic Socket based JavaFX Chat Client
 
 DEMO:
 
