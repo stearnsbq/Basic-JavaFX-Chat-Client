@@ -54,10 +54,6 @@ public class Controller implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("login.fxml"));
-            /*
-             * if "fx:controller" is not set in fxml
-             * fxmlLoader.setController(NewWindowController);
-             */
             Scene scene = new Scene(fxmlLoader.load(), 550, 50);
             Stage stage = new Stage();
             stage.setTitle("Login");
