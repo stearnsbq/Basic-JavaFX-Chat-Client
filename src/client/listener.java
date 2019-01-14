@@ -43,7 +43,7 @@ public listener (String hostname, int port, String username, Controller controll
 
         try {
             connect();
-            System.out.println("Sockets in and out ready!");
+            System.out.println("Sockets in and out Intialized");
             while (socket.isConnected()){
                 message message = null;
                 message = (message) input.readObject();
