@@ -6,17 +6,16 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.Controller">
    <children>
       <MenuBar prefHeight="32.0" prefWidth="744.0">
         <menus>
           <Menu mnemonicParsing="false" text="Connect">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="connect" mnemonicParsing="false" onAction="#openConnect" text="Connect To IP" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -31,15 +30,14 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ScrollPane prefHeight="305.0" prefWidth="744.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="303.0" prefWidth="743.0" />
-        </content>
-      </ScrollPane>
+      <ScrollPane fx:id="sPane" prefHeight="305.0" prefWidth="744.0">
+         <content>
+            <VBox fx:id="chatBox" prefHeight="269.0" prefWidth="740.0" />
+         </content></ScrollPane>
       <FlowPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <TextField prefHeight="31.0" prefWidth="332.0" promptText="enter a real epic message!" />
-            <Button mnemonicParsing="false" text="Enter" />
+            <TextField fx:id="message" onAction="#sendMessage" prefHeight="31.0" prefWidth="332.0" promptText="enter a real epic message!" />
+            <Button mnemonicParsing="false" onAction="#sendMessage" text="Enter" />
          </children>
       </FlowPane>
    </children>
