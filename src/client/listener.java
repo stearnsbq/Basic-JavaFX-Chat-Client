@@ -47,6 +47,7 @@ public listener (String hostname, int port, String username, Controller controll
             while (socket.isConnected()){
                 message message = null;
                 message = (message) input.readObject();
+                controller.addToUserList(message);
                 if (message != null) {
                     controller.addToChatBox(message);
                 }
