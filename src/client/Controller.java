@@ -1,6 +1,10 @@
 package client;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
+import server.user;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -10,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -23,6 +28,7 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +38,8 @@ public class Controller implements Initializable {
     MenuItem connect;
     @FXML
     ScrollPane sPane;
+    @FXML
+    ListView<user> userListView;
     @FXML
     javafx.scene.control.TextField message;
 
@@ -82,6 +90,15 @@ public class Controller implements Initializable {
             message.clear();
         }
 
+    }
+
+    public void addToUserList(message message){
+        Platform.runLater(()-> {
+            ObservableList<user> users = FXCollections.observableList(message.getUsers());
+            userListView.setItems(users);
+            
+
+        });
     }
 
 
