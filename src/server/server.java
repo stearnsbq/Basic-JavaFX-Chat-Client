@@ -11,12 +11,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class server {
- private static final int PORT = 666;
+ private static int PORT = 666;
  private static HashSet<ObjectOutputStream> writers = new HashSet<>();
  private static ArrayList<user> userLists = new ArrayList<>();
  private static HashMap<String,user> names = new HashMap<>();
 
-public static void main(String[] args) throws Exception{
+
+
+    public static void main(String[] args) throws Exception{
     System.out.println("Chat Server is running.....");
         ServerSocket listener = new ServerSocket(PORT);
         try {
@@ -55,10 +57,11 @@ public static void main(String[] args) throws Exception{
              inputStream = new ObjectInputStream(is);
              os = socket.getOutputStream();
              outputStream = new ObjectOutputStream(os);
-             writers.add(outputStream);
 
              message first =(message) inputStream.readObject();
+             System.out.println(first.getName());
              checkForExistingUser(first);
+             writers.add(outputStream);
              login();
 
 
@@ -71,6 +74,7 @@ public static void main(String[] args) throws Exception{
              }
 
             }catch (Exception e){
+                e.printStackTrace();
 
             }finally {
                 closeConnections();
@@ -98,9 +102,10 @@ public static void main(String[] args) throws Exception{
         }
 
 
-        private synchronized void checkForExistingUser(message firstMessage) throws IllegalAccessException{
+        private synchronized void checkForExistingUser(message firstMessage) throws UserExistsException{
             System.out.println(firstMessage.getName() + " Is trying to connect...");
             if (!names.containsKey(firstMessage.getName())){
+                System.out.println(names.containsKey(firstMessage.getName()));
                 this.name = firstMessage.getName();
                 user = new user();
                 user.setName(firstMessage.getName());
@@ -109,9 +114,8 @@ public static void main(String[] args) throws Exception{
 
                 System.out.println(name + " Has been added to userlist");
 
-
             }else{
-                throw new IllegalAccessException("User already connected");
+                throw new UserExistsException(firstMessage.getName() + " is already connected");
             }
 
 
@@ -132,7 +136,7 @@ public static void main(String[] args) throws Exception{
         private synchronized void closeConnections(){
             System.out.println("Closing Connection to server");
             if (name != null){
-                names.remove(names);
+                names.remove(name);
             }
             if (user !=null){
                 userLists.remove(user);
@@ -144,6 +148,7 @@ public static void main(String[] args) throws Exception{
                 try {
                     inputStream.close();
                 }catch (Exception e){
+                    e.printStackTrace();
 
                 }
 
@@ -152,6 +157,7 @@ public static void main(String[] args) throws Exception{
                 try {
                     os.close();
                 }catch (Exception e){
+                    e.printStackTrace();
 
                 }
 
@@ -160,6 +166,7 @@ public static void main(String[] args) throws Exception{
                 try {
                     is.close();
                 }catch (Exception e){
+                    e.printStackTrace();
 
                 }
 
@@ -167,6 +174,7 @@ public static void main(String[] args) throws Exception{
             try {
                 leaving();
             }catch (Exception e){
+                e.printStackTrace();
 
             }
 

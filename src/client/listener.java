@@ -2,6 +2,8 @@ package client;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Arrays;
+
 import server.message;
 
 public class listener implements Runnable {
@@ -47,13 +49,13 @@ public listener (String hostname, int port, String username, Controller controll
             while (socket.isConnected()){
                 message message = null;
                 message = (message) input.readObject();
-                controller.addToUserList(message);
                 if (message != null) {
+                    controller.addToUserList(message);
                     controller.addToChatBox(message);
                 }
             }
         }catch (Exception e){
-e.printStackTrace();
+            controller.openErrorScreen("That User is already Connected!");
         }
 
     }
