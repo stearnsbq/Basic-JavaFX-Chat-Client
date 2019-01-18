@@ -120,6 +120,8 @@ public static void main(String[] args) throws Exception{
 
         private void write(message msg) throws IOException {
             for (ObjectOutputStream writer : writers) {
+                msg.setUsers(userLists);
+                msg.setList(names);
                 writer.writeObject(msg);
                 writer.reset();
             }
