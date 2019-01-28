@@ -55,7 +55,7 @@ public listener (String hostname, int port, String username, Controller controll
                 }
             }
         }catch (Exception e){
-            controller.openErrorScreen("That User is already Connected!");
+            controller.openErrorScreen(e.toString());
         }
 
     }

@@ -11,27 +11,36 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class server {
- private static int PORT = 666;
  private static HashSet<ObjectOutputStream> writers = new HashSet<>();
  private static ArrayList<user> userLists = new ArrayList<>();
  private static HashMap<String,user> names = new HashMap<>();
+ private  int maxUsers;
+ private int port;
 
 
+ public server(int port, int maxUsers){
+     this.maxUsers = maxUsers;
+     this.port = port;
+ }
 
-    public static void main(String[] args) throws Exception{
-    System.out.println("Chat Server is running.....");
-        ServerSocket listener = new ServerSocket(PORT);
-        try {
-            while (true) {
-                new Handler(listener.accept()).start();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            listener.close();
-        }
 
-}
+ public void startServer() throws Exception{
+     System.out.println("Chat Server is running.....");
+     ServerSocket listener = new ServerSocket(port);
+     try {
+         while (true) {
+             new Handler(listener.accept(),maxUsers).start();
+         }
+     }catch (Exception e){
+         e.printStackTrace();
+     }finally {
+         listener.close();
+     }
+
+
+ }
+
+
 
 
 
@@ -45,9 +54,11 @@ public class server {
         private message msg;
         private String name;
         private user user;
+        private int maxUsers;
 
-        public Handler(Socket socket) throws IOException {
+        public Handler(Socket socket, int maxUsers) throws IOException {
             this.socket = socket;
+            this.maxUsers = maxUsers;
         }
         @Override
         public void run(){
@@ -61,6 +72,7 @@ public class server {
              message first =(message) inputStream.readObject();
              System.out.println(first.getName());
              checkForExistingUser(first);
+             checkServerCapacity();
              writers.add(outputStream);
              login();
 
@@ -99,6 +111,13 @@ public class server {
             msg.setUsers(userLists);
             write(msg);
             return msg;
+        }
+
+
+        private synchronized void checkServerCapacity() throws Exception{
+            if (userLists.size() > maxUsers){
+                throw new ServerIsFullException("The server is full");
+            }
         }
 
 

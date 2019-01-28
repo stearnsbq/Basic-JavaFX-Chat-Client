@@ -16,8 +16,6 @@ public class errorScreen implements Initializable {
 
      public errorScreen(String errMsg){
         this.errMsg = errMsg;
-
-
     }
 
     @Override
