@@ -21,9 +21,9 @@ public class Register {
         Crypt crypt = new Crypt();
         Database database = new Database();
         Statement statement = database.getStatement();
-        ResultSet resultSet = statement.executeQuery("select CryptKey from encryption");
+        ResultSet resultSet = statement.executeQuery("");
         resultSet.first();
-        byte[] decodedKey = Base64.getDecoder().decode(resultSet.getString("cryptkey"));
+        byte[] decodedKey = Base64.getDecoder().decode(resultSet.getString(""));
         SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
         database.addAccountToDataBase(crypt.encrypt(username, originalKey),crypt.encrypt(password, originalKey));
     }
