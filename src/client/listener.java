@@ -2,28 +2,30 @@ package client;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Arrays;
+
 import server.message;
 
 public class listener implements Runnable {
 
-private Socket socket;
-public String hostname;
-public int port;
-public Controller controller;
-public static String username;
-private static ObjectOutputStream oos;
-private InputStream is;
-private ObjectInputStream input;
-private OutputStream outputStream;
+    private Socket socket;
+    public String hostname;
+    public int port;
+    public Controller controller;
+    public static String username;
+    private static ObjectOutputStream oos;
+    private InputStream is;
+    private ObjectInputStream input;
+    private OutputStream outputStream;
 
 
-public listener (String hostname, int port, String username, Controller controller){
-    this.hostname = hostname;
-    this.port = port;
-    this.username = username;
-    this.controller = controller;
+    public listener (String hostname, int port, String username, Controller controller){
+        this.hostname = hostname;
+        this.port = port;
+        this.username = username;
+        this.controller = controller;
 
-}
+    }
 
 
     @Override
@@ -47,13 +49,13 @@ public listener (String hostname, int port, String username, Controller controll
             while (socket.isConnected()){
                 message message = null;
                 message = (message) input.readObject();
-                controller.addToUserList(message);
                 if (message != null) {
+                    controller.addToUserList(message);
                     controller.addToChatBox(message);
                 }
             }
         }catch (Exception e){
-e.printStackTrace();
+            controller.openErrorScreen(e.toString());
         }
 
     }
