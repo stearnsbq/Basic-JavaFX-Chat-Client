@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.loginBox">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0" prefWidth="209.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="349.0" minWidth="10.0" prefWidth="191.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0" prefWidth="200.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="219.0" minHeight="10.0" prefHeight="137.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="219.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="235.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="159.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="159.0" minHeight="10.0" prefHeight="103.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <TextField fx:id="password" prefHeight="31.0" prefWidth="221.0" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="username" promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button fx:id="register" mnemonicParsing="false" text="Register" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="100.0" />
+         </GridPane.margin></Button>
+      <Label alignment="BOTTOM_CENTER" prefHeight="135.0" prefWidth="211.0" text="Login" GridPane.columnIndex="1" />
+      <Label alignment="TOP_RIGHT" prefHeight="28.0" prefWidth="177.0" text="Username" GridPane.rowIndex="1" />
+      <Label alignment="TOP_RIGHT" layoutX="10.0" layoutY="160.0" prefHeight="28.0" prefWidth="177.0" text="Password" GridPane.rowIndex="2" />
+      <Button fx:id="login" mnemonicParsing="false" onAction="#login" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin></Button>
+   </children>
+</GridPane>

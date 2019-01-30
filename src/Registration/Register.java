@@ -1,5 +1,6 @@
 package Registration;
 
+import database.Authenication;
 import database.Database;
 
 import javax.crypto.Cipher;
@@ -21,13 +22,19 @@ public class Register {
         Crypt crypt = new Crypt();
         Database database = new Database();
         Statement statement = database.getStatement();
-        ResultSet resultSet = statement.executeQuery("");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM encryption");
         resultSet.first();
-        byte[] decodedKey = Base64.getDecoder().decode(resultSet.getString(""));
+        byte[] decodedKey = Base64.getDecoder().decode(resultSet.getString("Key"));
         SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
         database.addAccountToDataBase(crypt.encrypt(username, originalKey),crypt.encrypt(password, originalKey));
     }
 
+
+    public static void main(String args[]) throws Exception{
+        registerUser("quinn50","awsedrft1");
+        //Authenication authenication = new Authenication("open door ","during fire drill");
+       // System.out.println(authenication.Auth());
+    }
 
 
 

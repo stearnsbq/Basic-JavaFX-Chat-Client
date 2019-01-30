@@ -31,9 +31,8 @@ public class login {
     @FXML
     TextField port;
     @FXML
-    TextField user;
-    @FXML
     Button login;
+
 
 
     public static Controller con;
@@ -43,15 +42,47 @@ public class login {
     }
 
 
-    public void connect(javafx.event.ActionEvent e) throws Exception{
-        String host = ip.getText();
-        int portNum = Integer.parseInt(port.getText());
-        String username = user.getText();
+    private int portNumber;
+    private String host;
 
+
+
+    public void loginToServer(javafx.event.ActionEvent e){
+        this.portNumber = Integer.parseInt(port.getText());
+        this.host = ip.getText();
+        Platform.runLater(()->{
+            ip.getScene().getWindow().hide();
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("loginBox.fxml"));
+                Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+                Stage stage = new Stage();
+                stage.setTitle("Login");
+                stage.setResizable(false);
+                stage.setScene(scene);
+                stage.show();
+
+            } catch (IOException event) {
+                Logger logger = Logger.getLogger(getClass().getName());
+                logger.log(Level.SEVERE, "Failed to create new Window.", event);
+            }
+
+
+
+        });
+    }
+
+
+    public void saveData(){
+
+    }
+
+
+    public void connect(String username) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("chatWindow.fxml"));
         Parent window = (Pane) fxmlLoader.load();
         con = fxmlLoader.getController();
-        listener listener = new listener(host,portNum,username,con);
+        listener listener = new listener(host,portNumber,username,con);
         Thread x = new Thread(listener);
         x.start();
         this.scene = new Scene(window);

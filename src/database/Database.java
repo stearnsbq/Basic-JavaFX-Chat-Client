@@ -32,7 +32,7 @@ public class Database {
     }
 
     public void addAccountToDataBase(String cryptUsername, String cryptPassword) throws Exception{
-        String sql = String.format("INSERT INTO logininfo (usernames, passwords) VALUES ('%s', '%s')", cryptUsername,cryptPassword);
+        String sql = String.format("INSERT INTO logininfo (username, password) VALUES ('%s', '%s')", cryptUsername,cryptPassword);
         statement.executeUpdate(sql);
         System.out.println("User Registered into Database");
 

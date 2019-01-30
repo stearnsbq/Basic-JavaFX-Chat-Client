@@ -45,4 +45,13 @@ public class Crypt {
         return decryptedText;
     }
 
+
+    @Override
+    public String toString() {
+        try {
+            return Base64.getEncoder().encodeToString(key.getEncoded());
+        }catch (Exception e){
+                return  null;
+        }
+    }
 }

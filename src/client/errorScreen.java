@@ -13,7 +13,6 @@ public class errorScreen implements Initializable {
 
     @FXML
     Label err;
-
      public errorScreen(String errMsg){
         this.errMsg = errMsg;
     }
