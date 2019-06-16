@@ -1,5 +1,8 @@
 package server;
 
+import javafx.scene.image.Image;
+
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +13,15 @@ public class message implements Serializable {
     private String msg;
     private ArrayList<user> users;
     private ArrayList<user> list;
+    private String img;
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
 
     public ArrayList<user> getUsers() {
         return users;

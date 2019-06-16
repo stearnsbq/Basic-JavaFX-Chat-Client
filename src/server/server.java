@@ -2,7 +2,7 @@ package server;
 
 import client.Controller;
 
-import java.awt.*;
+import server.database.Authenication;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -86,7 +86,7 @@ public class server {
                 }
 
             }catch (Exception e){
-                e.printStackTrace();
+                System.out.println(e.toString());
 
             }finally {
                 closeConnections();
@@ -104,14 +104,22 @@ public class server {
 
         }
 
+        //private Authenication authenication(){
+          //  Authenication authenication = new Authenication();
+
+       // }
+
         private message leaving() throws IOException{
             message msg = new message();
-            msg.setMsg(name + " has left the server");
-            msg.setName("SERVER");
-            msg.setUsers(userLists);
-            write(msg);
+            if (!name.equals("null")) {
+                msg.setMsg(name + " has left the server");
+                msg.setName("SERVER");
+                msg.setUsers(userLists);
+                write(msg);
+            }
             return msg;
         }
+
 
 
         private synchronized void checkServerCapacity() throws Exception{
@@ -124,7 +132,6 @@ public class server {
         private synchronized void checkForExistingUser(message firstMessage) throws UserExistsException{
             System.out.println(firstMessage.getName() + " Is trying to connect...");
             if (!names.containsKey(firstMessage.getName())){
-                System.out.println(names.containsKey(firstMessage.getName()));
                 this.name = firstMessage.getName();
                 user = new user();
                 user.setName(firstMessage.getName());

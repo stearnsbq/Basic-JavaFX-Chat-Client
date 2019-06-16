@@ -2,21 +2,22 @@ package client;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Arrays;
 
+import javafx.scene.control.Alert;
 import server.message;
 
 public class listener implements Runnable {
 
     private Socket socket;
-    public String hostname;
-    public int port;
-    public Controller controller;
-    public static String username;
+    private String hostname;
+    private int port;
+    private Controller controller;
+    private static String username;
     private static ObjectOutputStream oos;
     private InputStream is;
     private ObjectInputStream input;
     private OutputStream outputStream;
+    private boolean isAuth;
 
 
     public listener (String hostname, int port, String username, Controller controller){
@@ -24,7 +25,7 @@ public class listener implements Runnable {
         this.port = port;
         this.username = username;
         this.controller = controller;
-
+        isAuth = false;
     }
 
 
@@ -32,7 +33,7 @@ public class listener implements Runnable {
     public void run() {
         try {
             socket = new Socket(hostname, port);
-            login.getInstance().showScene();
+            loginBox.getInstance().showScene();
             outputStream = socket.getOutputStream();
             oos = new ObjectOutputStream(outputStream);
             is = socket.getInputStream();
@@ -44,21 +45,32 @@ public class listener implements Runnable {
 
 
         try {
+
+
+
+
             connect();
             System.out.println("Sockets in and out Intialized");
             while (socket.isConnected()){
                 message message = null;
                 message = (message) input.readObject();
                 if (message != null) {
-                    controller.addToUserList(message);
-                    controller.addToChatBox(message);
+                    if (message.getMsg().isEmpty()){
+                        controller.addImageToChatBox(message);
+                    }else {
+                        controller.addToUserList(message);
+                        controller.addToChatBox(message);
+                    }
+
                 }
             }
         }catch (Exception e){
-            controller.openErrorScreen(e.toString());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.showAndWait();
         }
 
     }
+
 
 
     public static void connect() throws IOException {
@@ -68,9 +80,20 @@ public class listener implements Runnable {
         oos.writeObject(createMessage);
     }
 
+
     public static void send(String msg) throws IOException {
         message createMessage = new message();
         createMessage.setName(username);
+        createMessage.setMsg(msg);
+        createMessage.setImg(null);
+        oos.writeObject(createMessage);
+        oos.flush();
+    }
+
+    public static void send(String img, String msg) throws IOException {
+        message createMessage = new message();
+        createMessage.setName(username);
+        createMessage.setImg(img);
         createMessage.setMsg(msg);
         oos.writeObject(createMessage);
         oos.flush();

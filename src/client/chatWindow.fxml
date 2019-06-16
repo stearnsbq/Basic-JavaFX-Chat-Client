@@ -45,13 +45,14 @@
          <children>
             <TextField fx:id="message" onAction="#sendMessage" prefHeight="31.0" prefWidth="332.0" promptText="enter a real epic message!" />
             <Button mnemonicParsing="false" onAction="#sendMessage" text="Enter" />
+            <Button mnemonicParsing="false" onAction="#addImage" text="Image" />
          </children>
       </FlowPane>
    </bottom>
    <left>
       <ScrollPane prefHeight="66.0" prefWidth="123.0" BorderPane.alignment="CENTER">
          <content>
-            <ListView fx:id="userListView" editable="true" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="userListView" editable="true" prefHeight="400.0" prefWidth="108.0" />
          </content>
       </ScrollPane>
    </left>
