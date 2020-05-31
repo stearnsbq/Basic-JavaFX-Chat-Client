@@ -1,0 +1,5 @@
+{
+  "description": "A really basic client and server chat client with database for storing user accounts using argon2 for hashing algoritm. People are able to register to a server and login. Users are also able to upload and change their avatar",
+  "accomplishments": [ "Implemented a multi-threaded server to allow multiple connections", "User registration via mySQL database", "Implemented a chat system with avatars" ],
+  "technologies": ["Client Server Architecture", "Multi-threading", "MySQL", "User registration"]
+}
