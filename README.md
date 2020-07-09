@@ -10,7 +10,7 @@ DEMO:
 <ul>
   <li>Design</li>
   <li>Emoji Support</li>
-  <li>Connnected Userlist</li>
+  <li>Connnected Userlist</li> 
   <li>Server Control Panel</li> 
   <li>User Registration</li>
   <li>Profile pictures</li>
